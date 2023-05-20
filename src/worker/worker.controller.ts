@@ -10,6 +10,7 @@ import {
 import { WorkerService } from './worker.service';
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UpdateWorkerDto } from './dto/update-worker.dto';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('worker')
 export class WorkerController {
@@ -21,6 +22,10 @@ export class WorkerController {
   }
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'Find all Workes',
+  })
   findAll() {
     return this.workerService.findAll();
   }
