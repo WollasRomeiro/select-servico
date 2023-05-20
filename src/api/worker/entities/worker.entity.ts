@@ -1,5 +1,5 @@
 import { Column, Entity } from 'typeorm';
-import { Default } from 'util/default.entity';
+import { Default } from 'src/util/default.entity';
 
 @Entity('trabalhador')
 export class Worker extends Default {
