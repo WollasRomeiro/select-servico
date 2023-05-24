@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { WorkerModule } from './api/worker/worker.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PersonModule } from './api/person/person.module';
 
 @Module({
   imports: [
@@ -18,8 +17,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       //timezone: '00:00',
       entities: ['dist/**/entities/*{.ts,.js}'],
     }),
+    PersonModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
