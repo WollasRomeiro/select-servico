@@ -1,13 +1,13 @@
-import { Column, Entity } from 'typeorm';
 import { Default } from 'src/util/default.entity';
+import { Column, Entity } from 'typeorm';
 
-@Entity('pessoa')
-export class Person extends Default {
+@Entity('usuario')
+export class User extends Default {
   @Column({ name: 'nome', nullable: false, type: 'varchar', length: 200 })
   name: string;
 
-  @Column({ name: 'telefoen', nullable: false, type: 'varchar' })
-  phone: string;
+  @Column({ name: 'idade', nullable: false, type: 'varchar' })
+  age: string;
 
   @Column({ name: 'email', nullable: false, type: 'varchar' })
   email: string;
@@ -17,4 +17,7 @@ export class Person extends Default {
 
   @Column({ name: 'cpf', nullable: false, type: 'varchar' })
   cpf: string;
+
+  @Column({ name: 'telefone', nullable: false, type: 'varchar' })
+  phone: string;
 }

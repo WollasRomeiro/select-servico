@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 
 import { WorkerModule } from './api/worker/worker.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PersonModule } from './api/person/person.module';
+import { UserModule } from './api/user/user.module';
 
 @Module({
   imports: [
     WorkerModule,
+    UserModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'bmuy2hi04zo7sou35m19-postgresql.services.clever-cloud.com',
@@ -18,7 +19,6 @@ import { PersonModule } from './api/person/person.module';
       //timezone: '00:00',
       entities: ['dist/**/entities/*{.ts,.js}'],
     }),
-    PersonModule,
   ],
 })
 export class AppModule {}

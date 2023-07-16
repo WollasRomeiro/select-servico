@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { DefaultDTO } from 'src/util/deafault.dto';
 
-export class CreatePersonDto extends DefaultDTO {
+export class CreateUserDto extends DefaultDTO {
   @ApiProperty()
   name: string;
 
   @ApiProperty()
-  phone: string;
+  age: string;
 
   @ApiProperty()
   email: string;
@@ -16,4 +16,7 @@ export class CreatePersonDto extends DefaultDTO {
 
   @ApiProperty()
   cpf: string;
+
+  @ApiProperty()
+  phone: string;
 }

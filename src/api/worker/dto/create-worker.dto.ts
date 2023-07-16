@@ -6,8 +6,17 @@ export class CreateWorkerDto extends DefaultDTO {
   name: string;
 
   @ApiProperty()
+  email: string;
+
+  @ApiProperty()
+  schooling: string;
+
+  @ApiProperty()
   cnpj: string;
 
   @ApiProperty()
-  midpoint: string;
+  phone: string;
+
+  @ApiProperty()
+  function: string;
 }
