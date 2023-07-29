@@ -1,9 +1,10 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Default } from 'src/util/default.entity';
+import { User } from 'src/api/user/entities/user.entity';
 
 @Entity('trabalhador')
 export class Worker extends Default {
-  @Column({ name: 'nome', nullable: false, type: 'varchar', length: 200 })
+  @Column({ name: 'nome', nullable: false, type: 'varchar' })
   name: string;
 
   @Column({ name: 'email', nullable: true, type: 'varchar' })
@@ -20,4 +21,8 @@ export class Worker extends Default {
 
   @Column({ name: 'funcao', nullable: true, type: 'varchar' })
   function: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'usuario_id' })
+  user: User;
 }

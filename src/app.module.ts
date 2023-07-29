@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { WorkerModule } from './api/worker/worker.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './api/user/user.module';
+import { ContractModule } from './api/contract/contract.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserModule } from './api/user/user.module';
       //timezone: '00:00',
       entities: ['dist/**/entities/*{.ts,.js}'],
     }),
+    ContractModule,
   ],
 })
 export class AppModule {}
