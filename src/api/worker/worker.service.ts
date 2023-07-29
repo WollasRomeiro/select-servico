@@ -34,7 +34,7 @@ export class WorkerService {
     }
   }
 
-  async findAll(): Promise<Worker[]> {
+  findAll(): Promise<Worker[]> {
     return this.repository.find();
   }
 
@@ -49,10 +49,10 @@ export class WorkerService {
   }
 
   async update(id: number, updateWorkerDto: UpdateWorkerDto) {
-    const picket: Worker = await this.findOne(id);
+    const worker: Worker = await this.findOne(id);
     await this.repository.update(id, updateWorkerDto);
 
-    return Object.assign({}, picket, updateWorkerDto);
+    return Object.assign({}, worker, updateWorkerDto);
   }
 
   async remove(id: number) {
