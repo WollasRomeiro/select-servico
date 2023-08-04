@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { DefaultDTO } from 'src/util/deafault.dto';
 import { Timestamp } from 'typeorm';
+import { DefaultDTO } from 'util/deafault.dto';
 
 export class CreateContractDto extends DefaultDTO {
   @ApiProperty()

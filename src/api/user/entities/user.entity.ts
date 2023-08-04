@@ -1,4 +1,4 @@
-import { Default } from 'src/util/default.entity';
+import { Default } from 'util/default.entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity('usuario')
