@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { Default } from 'src/util/default.entity';
-import { User } from 'src/api/user/entities/user.entity';
+import { Default } from 'util/default.entity';
+import { User } from 'api/user/entities/user.entity';
 
 @Entity('trabalhador')
 export class Worker extends Default {
@@ -11,7 +11,7 @@ export class Worker extends Default {
   email: string;
 
   @Column({ name: 'escolaridade', nullable: true, type: 'varchar' })
-  schooling: string;
+  education: string;
 
   @Column({ name: 'cnpj', nullable: true, type: 'varchar' })
   cnpj: string;
