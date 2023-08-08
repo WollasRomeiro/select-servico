@@ -10,7 +10,7 @@ export class Contract extends Default {
   @Column({ name: 'comentario', nullable: false, type: 'varchar' })
   comment: string;
 
-  @Column({ name: 'hora', nullable: false, type: 'timestamp' })
+  @Column({ name: 'hora', nullable: true, type: 'timestamp' })
   hour: Timestamp;
 
   @ManyToOne(() => User)
