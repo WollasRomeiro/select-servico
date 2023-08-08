@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+<<<<<<< HEAD
 import { WorkerModule } from './api/worker/worker.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PersonModule } from './api/person/person.module';
@@ -19,5 +20,16 @@ import { PersonModule } from './api/person/person.module';
     }),
     PersonModule,
   ],
+=======
+
+import { WorkerModule } from './api/worker/worker.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './api/user/user.module';
+import { ContractModule } from './api/contract/contract.module';
+import yaml from './config';
+
+@Module({
+  imports: [WorkerModule, UserModule, TypeOrmModule.forRoot(yaml().orm), ContractModule],
+>>>>>>> 01b4615adf71dcb3a3a888326109183090e921b5
 })
 export class AppModule {}

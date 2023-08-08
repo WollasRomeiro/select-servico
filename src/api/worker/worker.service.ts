@@ -34,7 +34,7 @@ export class WorkerService {
     }
   }
 
-  async findAll(): Promise<Worker[]> {
+  findAll(): Promise<Worker[]> {
     return this.repository.find();
   }
 
