@@ -1,21 +1,15 @@
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UpdateWorkerDto } from './dto/update-worker.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Worker } from './entities/worker.entity';
+import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { SelectWorkerDto } from './dto/select-worker.dto';
 
 @Injectable()
 export class WorkerService {
-  constructor(
-    @InjectRepository(Worker) public readonly repository: Repository<Worker>,
-  ) {}
+  constructor(@InjectRepository(Worker) public readonly repository: Repository<Worker>) {}
 
   async create(createWorkerDto: CreateWorkerDto) {
     try {
@@ -34,8 +28,13 @@ export class WorkerService {
     }
   }
 
-  findAll(): Promise<Worker[]> {
-    return this.repository.find();
+  async findAll(paginationOptions: IPaginationOptions): Promise<Pagination<SelectWorkerDto>> {
+    const query = this.repository.createQueryBuilder('worker').select().orderBy('worker.id', 'DESC');
+
+    const results = await paginate<Worker>(query, paginationOptions);
+    const items = results.items.map((result) => new SelectWorkerDto(result));
+
+    return new Pagination<SelectWorkerDto>(items, results.meta);
   }
 
   async findOne(id: number) {

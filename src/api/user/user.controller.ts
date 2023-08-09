@@ -1,16 +1,12 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiResponse } from '@nestjs/swagger';
+import { SelectUserDto } from './dto/select-user.dto';
+import { paginationDTOResponse } from 'util/functions/pagination-swagger';
+import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
+import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 @Controller('user')
 export class UserController {
@@ -24,10 +20,15 @@ export class UserController {
   @Get()
   @ApiResponse({
     status: 200,
-    description: 'Find all Persons',
+    description: 'Find all Users',
+    type: paginationDTOResponse(SelectUserDto),
   })
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Query() paginationOptions: PaginationOptionsQuery) {
+    const options: IPaginationOptions = {
+      limit: paginationOptions.limit ?? 10,
+      page: paginationOptions.page ?? 1,
+    };
+    return this.userService.findAll(options);
   }
 
   @Get(':id')
