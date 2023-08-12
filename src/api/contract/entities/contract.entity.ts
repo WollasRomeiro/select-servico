@@ -2,7 +2,7 @@ import { User } from 'api/user/entities/user.entity';
 import { Default } from 'util/default.entity';
 import { Column, Entity, JoinColumn, ManyToOne, Timestamp } from 'typeorm';
 
-@Entity('Contrato')
+@Entity('contrato')
 export class Contract extends Default {
   @Column({ name: 'data', nullable: false, type: 'timestamp' })
   data: Date;
