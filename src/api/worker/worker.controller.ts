@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { WorkerService } from './worker.service';
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UpdateWorkerDto } from './dto/update-worker.dto';
 import { ApiResponse } from '@nestjs/swagger';
+import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
+import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 @Controller('worker')
 export class WorkerController {
@@ -26,8 +29,12 @@ export class WorkerController {
     status: 200,
     description: 'Find all Workes',
   })
-  findAll() {
-    return this.workerService.findAll();
+  findAll(@Query() paginationOptions: PaginationOptionsQuery) {
+    const options: IPaginationOptions = {
+      limit: paginationOptions.limit ?? 10,
+      page: paginationOptions.page ?? 1,
+    };
+    return this.workerService.findAll(options);
   }
 
   @Get(':id')

@@ -1,21 +1,15 @@
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
+import { SelectUserDto } from './dto/select-user.dto';
+import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User) public readonly repository: Repository<User>,
-  ) {}
+  constructor(@InjectRepository(User) public readonly repository: Repository<User>) {}
   async create(createUserDto: CreateUserDto) {
     try {
       const data = await this.repository.save(createUserDto);
@@ -33,8 +27,13 @@ export class UserService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return this.repository.find();
+  async findAll(paginationOptions: IPaginationOptions): Promise<Pagination<SelectUserDto>> {
+    const query = this.repository.createQueryBuilder('user').select().orderBy('user.id', 'DESC');
+
+    const results = await paginate<User>(query, paginationOptions);
+    const items = results.items.map((result) => new SelectUserDto(result));
+
+    return new Pagination<SelectUserDto>(items, results.meta);
   }
 
   async findOne(id: number) {

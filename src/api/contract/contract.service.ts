@@ -10,6 +10,9 @@ import { UpdateContractDto } from './dto/update-contract.dto';
 import { Contract } from './entities/contract.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { SelectContractDto } from './dto/select-contract.dto';
+import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+
 
 @Injectable()
 export class ContractService {
@@ -34,8 +37,13 @@ export class ContractService {
     }
   }
 
-  findAll(): Promise<Contract[]> {
-    return this.repository.find();
+  async findAll(paginationOptions: IPaginationOptions): Promise<Pagination<SelectContractDto>> {
+    const query = this.repository.createQueryBuilder('contract').select().orderBy('contract.id', 'DESC');
+
+    const results = await paginate<Contract>(query, paginationOptions);
+    const items = results.items.map((result) => new SelectContractDto(result));
+
+    return new Pagination<SelectContractDto>(items, results.meta);
   }
 
   async findOne(id: number) {

@@ -1,8 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ContractService } from './contract.service';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { SelectContractDto } from './dto/select-contract.dto';
+import { paginationDTOResponse } from 'util/functions/pagination-swagger';
+import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
+import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 @Controller('contract')
 @ApiTags('contract')
@@ -18,9 +22,14 @@ export class ContractController {
   @ApiResponse({
     status: 200,
     description: 'Find all Contracts',
+    type: paginationDTOResponse(SelectContractDto),
   })
-  findAll() {
-    return this.contractService.findAll();
+  findAll(@Query() paginationOptions: PaginationOptionsQuery) {
+    const options: IPaginationOptions = {
+      limit: paginationOptions.limit ?? 10,
+      page: paginationOptions.page ?? 1,
+    };
+    return this.contractService.findAll(options);
   }
 
   @Get(':id')
