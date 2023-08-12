@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Default } from 'util/default.entity';
+import { DefaultDTO } from 'util/deafault.dto';
 
-export class CreateCompanyDto extends Default {
+export class CreateCompanyDto extends DefaultDTO {
   @ApiProperty()
   name: string;
 
