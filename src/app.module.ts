@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './api/user/user.module';
 import { ContractModule } from './api/contract/contract.module';
 import { CompanyModule } from './api/company/company.module';
+import { AddressModule } from './api/address/address.module';
 import yaml from './config';
 
 @Module({
-  imports: [WorkerModule, UserModule, TypeOrmModule.forRoot(yaml().orm), ContractModule, CompanyModule],
+  imports: [WorkerModule, UserModule, TypeOrmModule.forRoot(yaml().orm), ContractModule, CompanyModule, AddressModule],
 })
 export class AppModule {}
