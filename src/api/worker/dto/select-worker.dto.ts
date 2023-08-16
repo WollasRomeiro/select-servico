@@ -11,5 +11,7 @@ export class SelectWorkerDto extends CreateWorkerDto {
     this.cnpj = worker.cnpj;
     this.phone = worker.phone;
     this.function = worker.function;
+    this.companyId = worker.companyId;
+    this.userId = worker.userId;
   }
 }

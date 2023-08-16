@@ -19,4 +19,10 @@ export class CreateWorkerDto extends DefaultDTO {
 
   @ApiProperty()
   function: string;
+
+  @ApiProperty()
+  companyId: number;
+
+  @ApiProperty()
+  userId: number;
 }

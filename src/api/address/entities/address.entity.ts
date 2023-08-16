@@ -1,4 +1,5 @@
-import { Column, Entity } from 'typeorm';
+import { Company } from 'api/company/entities/company.entity';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Default } from 'util/default.entity';
 
 @Entity('endereco')
@@ -20,4 +21,11 @@ export class Address extends Default {
 
   @Column({ name: 'país', nullable: false, type: 'varchar' })
   country: string;
+
+  @ManyToOne(() => Company)
+  @JoinColumn({ name: 'company_id' })
+  company: Company;
+
+  @Column({ name: 'company_id' })
+  companyId: number;
 }

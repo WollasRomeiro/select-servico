@@ -19,4 +19,7 @@ export class CreateAddressDto extends DefaultDTO {
 
   @ApiProperty()
   country: string;
+
+  @ApiProperty()
+  companyId: number;
 }
