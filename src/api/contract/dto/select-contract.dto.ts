@@ -8,5 +8,8 @@ export class SelectContractDto extends CreateContractDto {
     this.data = contract.data;
     this.comment = contract.comment;
     this.hour = contract.hour;
+    this.userId = contract.userId;
+    this.workerId = contract.workerId;
+    this.companyId = contract.companyId;
   }
 }

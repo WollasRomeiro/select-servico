@@ -11,5 +11,6 @@ export class SelectAddressDto extends CreateAddressDto {
     this.number = address.number;
     this.neighborhood = address.neighborhood;
     this.country = address.country;
+    this.companyId = address.companyId;
   }
 }

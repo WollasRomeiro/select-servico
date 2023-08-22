@@ -11,4 +11,13 @@ export class CreateContractDto extends DefaultDTO {
 
   @ApiProperty()
   hour: Timestamp;
+
+  @ApiProperty()
+  userId: number;
+
+  @ApiProperty()
+  workerId: number;
+
+  @ApiProperty()
+  companyId: number;
 }

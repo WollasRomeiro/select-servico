@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { Default } from 'util/default.entity';
 import { User } from 'api/user/entities/user.entity';
+import { Company } from 'api/company/entities/company.entity';
 
 @Entity('trabalhador')
 export class Worker extends Default {
@@ -22,7 +23,17 @@ export class Worker extends Default {
   @Column({ name: 'funcao', nullable: true, type: 'varchar' })
   function: string;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'usuario_id' })
+  @ManyToOne(() => Company)
+  @JoinColumn({ name: 'company_id' })
+  company: Company;
+
+  @Column({ name: 'company_id' })
+  companyId: number;
+
+  @OneToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @Column({ name: 'user_id' })
+  userId: number;
 }
