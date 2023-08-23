@@ -4,12 +4,13 @@ server:
 
 orm:
   type: postgres
-  host: bmuy2hi04zo7sou35m19-postgresql.services.clever-cloud.com
-  port: 5432
-  username: ue7di4cvgbgdb7bhigfh
-  password: 8iOt5FBLjk2dZrGq9jcJ0hhP662fWs
-  database: bmuy2hi04zo7sou35m19
+  host: ep-gentle-heart-96961425.us-east-1.aws.neon.tech
+  username: juniorpb
+  password: 6Pht7OKLlCBs
+  database: select-servicos
   synchronize: true
+  ssl: true
+  autoLoadEntities: true
   timezone: '00:00'
   entities:
     - dist/**/entities/*{.ts,.js}
