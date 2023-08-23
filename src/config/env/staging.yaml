@@ -1,0 +1,16 @@
+server:
+  name: select-servicos
+  port: 3000
+
+orm:
+  type: postgres
+  host: ep-gentle-heart-96961425.us-east-1.aws.neon.tech
+  username: juniorpb
+  password: 6Pht7OKLlCBs
+  database: select-servicos
+  synchronize: true
+  ssl: true
+  autoLoadEntities: true
+  timezone: '00:00'
+  entities:
+    - dist/**/entities/*{.ts,.js}
