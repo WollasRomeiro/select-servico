@@ -30,7 +30,7 @@ export class Worker extends Default {
   @Column({ name: 'company_id' })
   companyId: number;
 
-  @OneToOne(() => User)
+  @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
