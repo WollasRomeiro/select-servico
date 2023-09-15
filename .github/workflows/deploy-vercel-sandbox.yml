@@ -1,0 +1,22 @@
+name: deploy-sandbox
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - '!main'
+  workflow_dispatch:
+env:
+  VERCEL_ORG_ID: SDvh6GxKEkBEasRzfev3d398
+  VERCEL_PROJECT_ID: prj_y0epO2F1KK7pUWUCKlLjkahiOvoH
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm install
+      - run: npm run build
+      - run: vercel deploy --token=SHPYCxlXhcXFpeurvDBpg02d
