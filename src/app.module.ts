@@ -8,8 +8,10 @@ import { CompanyModule } from './api/company/company.module';
 import { AddressModule } from './api/address/address.module';
 import { ProfissionModule } from './api/profission/profission.module';
 import yaml from './config';
+import { HomeController } from 'util/controller/home.controller';
 
 @Module({
   imports: [WorkerModule, UserModule, TypeOrmModule.forRoot(yaml().orm), ContractModule, CompanyModule, AddressModule, ProfissionModule],
+  controllers: [HomeController],
 })
 export class AppModule {}
