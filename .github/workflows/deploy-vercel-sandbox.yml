@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 env:
   VERCEL_ORG_ID: SDvh6GxKEkBEasRzfev3d398
-  VERCEL_PROJECT_ID: prj_y0epO2F1KK7pUWUCKlLjkahiOvoH
+  VERCEL_PROJECT_ID: prj_EnTUDVhLyvG7v1OgGtGZ1ydahSKD
 jobs:
   deploy:
     runs-on: ubuntu-latest
