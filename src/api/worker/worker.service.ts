@@ -34,7 +34,7 @@ export class WorkerService {
     const query = this.repository.createQueryBuilder('worker').select().orderBy('worker.id', 'DESC');
 
     if (name) {
-      query.andWhere('worker.name = :name', { name: name });
+      query.andWhere('worker.name ILIKE :name', { name: `${name}%` });
     }
 
     const results = await paginate<Worker>(query, paginationOptions);
@@ -52,7 +52,6 @@ export class WorkerService {
 
     return worker;
   }
-
 
   async update(id: number, updateWorkerDto: UpdateWorkerDto) {
     const worker: Worker = await this.findOne(id);
