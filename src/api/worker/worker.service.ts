@@ -2,10 +2,11 @@ import { BadRequestException, ConflictException, Injectable, InternalServerError
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UpdateWorkerDto } from './dto/update-worker.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, Repository } from 'typeorm';
 import { Worker } from './entities/worker.entity';
-import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { IPaginationMeta, IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { SelectWorkerDto } from './dto/select-worker.dto';
+import { WorkerFilter } from './dto/worker-filter.dto';
 
 @Injectable()
 export class WorkerService {
@@ -28,8 +29,13 @@ export class WorkerService {
     }
   }
 
-  async findAll(paginationOptions: IPaginationOptions): Promise<Pagination<SelectWorkerDto>> {
+  async findAll(workerFilter: WorkerFilter, paginationOptions: IPaginationOptions): Promise<Pagination<SelectWorkerDto>> {
+    const { name } = workerFilter;
     const query = this.repository.createQueryBuilder('worker').select().orderBy('worker.id', 'DESC');
+
+    if (name) {
+      query.andWhere('worker.name ILIKE :name', { name: `${name}%` });
+    }
 
     const results = await paginate<Worker>(query, paginationOptions);
     const items = results.items.map((result) => new SelectWorkerDto(result));

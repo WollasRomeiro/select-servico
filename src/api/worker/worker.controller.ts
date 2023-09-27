@@ -1,19 +1,14 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { WorkerService } from './worker.service';
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UpdateWorkerDto } from './dto/update-worker.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
+import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
+import { Worker } from './entities/worker.entity';
+import { WorkerFilter } from './dto/worker-filter.dto';
+import { SelectWorkerDto } from './dto/select-worker.dto';
+import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 
 @Controller('worker')
 export class WorkerController {
@@ -28,13 +23,14 @@ export class WorkerController {
   @ApiResponse({
     status: 200,
     description: 'Find all Workes',
+    type: paginationDTOResponse(SelectWorkerDto),
   })
-  findAll(@Query() paginationOptions: PaginationOptionsQuery) {
+  findAll(@Query() workerFilter: WorkerFilter, @Query() paginationOptions: PaginationOptionsQuery) {
     const options: IPaginationOptions = {
       limit: paginationOptions.limit ?? 10,
       page: paginationOptions.page ?? 1,
     };
-    return this.workerService.findAll(options);
+    return this.workerService.findAll(workerFilter, options);
   }
 
   @Get(':id')
