@@ -2,12 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { AddressService } from './address.service';
 import { CreateAddressDto } from './dto/create-address.dto';
 import { UpdateAddressDto } from './dto/update-address.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { SelectAddressDto } from './dto/select-address.dto';
 
+@ApiTags('address')
 @Controller('address')
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}

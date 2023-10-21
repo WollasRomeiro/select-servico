@@ -7,7 +7,7 @@ const Swagger: ISwaggerMiddleware = new SwaggerMiddleware();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  //await Swagger.start(app);
+  await Swagger.start(app);
 
   await app.listen(3000);
 }

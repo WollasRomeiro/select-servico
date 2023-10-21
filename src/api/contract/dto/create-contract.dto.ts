@@ -10,7 +10,7 @@ export class CreateContractDto extends DefaultDTO {
   comment: string;
 
   @ApiProperty()
-  hour: Timestamp;
+  hour: string;
 
   @ApiProperty()
   userId: number;
@@ -19,5 +19,5 @@ export class CreateContractDto extends DefaultDTO {
   workerId: number;
 
   @ApiProperty()
-  companyId: number;
+  companyId?: number;
 }

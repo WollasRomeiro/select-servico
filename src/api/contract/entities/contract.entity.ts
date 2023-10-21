@@ -12,8 +12,8 @@ export class Contract extends Default {
   @Column({ name: 'comentario', nullable: false, type: 'varchar' })
   comment: string;
 
-  @Column({ name: 'hora', nullable: true, type: 'timestamp' })
-  hour: Timestamp;
+  @Column({ name: 'hora', nullable: true, type: 'varchar' })
+  hour: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
@@ -33,6 +33,6 @@ export class Contract extends Default {
   @JoinColumn({ name: 'company_id' })
   company: Company;
 
-  @Column({ name: 'company_id' })
+  @Column({ name: 'company_id', nullable: true })
   companyId: number;
 }
