@@ -2,12 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { SelectCompanyDto } from './dto/select-company.dto';
 
+@ApiTags('company')
 @Controller('company')
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
@@ -20,7 +21,7 @@ export class CompanyController {
   @Get()
   @ApiResponse({
     status: 200,
-    description: 'Find all Companys',
+    description: 'Find all Companies',
     type: paginationDTOResponse(SelectCompanyDto),
   })
   findAll(@Query() paginationOptions: PaginationOptionsQuery) {

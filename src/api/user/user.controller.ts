@@ -2,12 +2,13 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SelectUserDto } from './dto/select-user.dto';
 import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
