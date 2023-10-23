@@ -1,10 +1,4 @@
-import {
-  BadRequestException,
-  ConflictException,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
 import { Contract } from './entities/contract.entity';
@@ -12,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SelectContractDto } from './dto/select-contract.dto';
 import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
-
+import { ContractFilter } from './dto/contract-filter.dto';
 
 @Injectable()
 export class ContractService {
@@ -37,8 +31,21 @@ export class ContractService {
     }
   }
 
-  async findAll(paginationOptions: IPaginationOptions): Promise<Pagination<SelectContractDto>> {
+  async findAll(contractFilter: ContractFilter, paginationOptions: IPaginationOptions): Promise<Pagination<SelectContractDto>> {
+    const { workerId, companyId, userId } = contractFilter;
     const query = this.repository.createQueryBuilder('contract').select().orderBy('contract.id', 'DESC');
+
+    if (workerId) {
+      query.andWhere('contract.workerId = :workerId', { workerId });
+    }
+
+    if (companyId) {
+      query.andWhere('contract.companyId = :companyId', { companyId });
+    }
+
+    if (userId) {
+      query.andWhere('contract.userId = :userId', { userId });
+    }
 
     const results = await paginate<Contract>(query, paginationOptions);
     const items = results.items.map((result) => new SelectContractDto(result));
