@@ -7,6 +7,7 @@ import { SelectContractDto } from './dto/select-contract.dto';
 import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
+import { ContractFilter } from './dto/contract-filter.dto';
 
 @Controller('contract')
 @ApiTags('contract')
@@ -24,12 +25,12 @@ export class ContractController {
     description: 'Find all Contracts',
     type: paginationDTOResponse(SelectContractDto),
   })
-  findAll(@Query() paginationOptions: PaginationOptionsQuery) {
+  findAll(@Query() contractFilter: ContractFilter, @Query() paginationOptions: PaginationOptionsQuery) {
     const options: IPaginationOptions = {
       limit: paginationOptions.limit ?? 10,
       page: paginationOptions.page ?? 1,
     };
-    return this.contractService.findAll(options);
+    return this.contractService.findAll(contractFilter, options);
   }
 
   @Get(':id')
