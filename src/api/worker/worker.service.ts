@@ -7,7 +7,7 @@ import { Worker } from './entities/worker.entity';
 import { IPaginationMeta, IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { SelectWorkerDto } from './dto/select-worker.dto';
 import { WorkerFilter } from './dto/worker-filter.dto';
-import { publishWroker } from 'util/publish/wrokerPublish';
+import { publishWroker } from 'util/publish/workerPublish';
 
 @Injectable()
 export class WorkerService {

@@ -18,19 +18,17 @@ export async function publishToQueue(channel, queueName, message) {
   return message;
 }
 
-export function publishWroker(message: any) {
+export async function publishWroker(message: any) {
   const queue = 'create_worker';
 
-  (async () => {
-    try {
-      const connection = createAmqpConnection();
-      const channel = await createChannel(connection, queue);
+  try {
+    const connection = createAmqpConnection();
+    const channel = await createChannel(connection, queue);
 
-      const publishedMessage = await publishToQueue(channel, queue, message);
+    const publishedMessage = await publishToQueue(channel, queue, message);
 
-      console.log('Mensagem publicada com sucesso:', publishedMessage);
-    } catch (err) {
-      console.error('Erro ao publicar a mensagem', err);
-    }
-  })();
+    console.log('Mensagem publicada com sucesso:', publishedMessage);
+  } catch (err) {
+    console.error('Erro ao publicar a mensagem', err);
+  }
 }
