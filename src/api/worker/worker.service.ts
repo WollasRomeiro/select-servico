@@ -7,6 +7,7 @@ import { Worker } from './entities/worker.entity';
 import { IPaginationMeta, IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
 import { SelectWorkerDto } from './dto/select-worker.dto';
 import { WorkerFilter } from './dto/worker-filter.dto';
+import { publishWroker } from 'util/publish/wrokerPublish';
 
 @Injectable()
 export class WorkerService {
@@ -15,6 +16,8 @@ export class WorkerService {
   async create(createWorkerDto: CreateWorkerDto) {
     try {
       const data = await this.repository.save(createWorkerDto);
+
+      publishWroker(createWorkerDto);
       return data;
     } catch (error) {
       if (error && error.code === 'ER_NO_REFERENCED_ROW_2') {
@@ -25,7 +28,7 @@ export class WorkerService {
         throw new BadRequestException(error.detail);
       }
 
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException(error);
     }
   }
 
