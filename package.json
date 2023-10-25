@@ -28,6 +28,7 @@
     "@nestjs/sequelize": "^9.0.2",
     "@nestjs/swagger": "^6.3.0",
     "@nestjs/typeorm": "^9.0.1",
+    "amqp-connection-manager": "^4.1.14",
     "build": "^0.1.4",
     "nestjs-typeorm-paginate": "^4.0.4",
     "pagination": "^0.4.6",
