@@ -19,4 +19,7 @@ export class CreateUserDto extends DefaultDTO {
 
   @ApiProperty()
   phone: string;
+
+  @ApiProperty()
+  loginId: number;
 }

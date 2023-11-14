@@ -9,9 +9,10 @@ import { AddressModule } from './api/address/address.module';
 import { ProfissionModule } from './api/profission/profission.module';
 import yaml from './config';
 import { HomeController } from 'util/controller/home.controller';
+import { LoginModule } from './api/login/login.module';
 
 @Module({
-  imports: [WorkerModule, UserModule, TypeOrmModule.forRoot(yaml().orm), ContractModule, CompanyModule, AddressModule, ProfissionModule],
+  imports: [WorkerModule, UserModule, TypeOrmModule.forRoot(yaml().orm), ContractModule, CompanyModule, AddressModule, ProfissionModule, LoginModule],
   controllers: [HomeController],
 })
 export class AppModule {}

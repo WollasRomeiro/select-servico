@@ -11,5 +11,6 @@ export class SelectUserDto extends CreateUserDto {
       this.password = user.password;
       this.cpf = user.cpf;
       this.phone = user.phone;
+      this.loginId = user.loginId;
     }
   }
