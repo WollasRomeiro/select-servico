@@ -1,6 +1,6 @@
 import { Default } from 'util/default.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-import { Login } from 'api/login/entities/login.entity';
+import { BeforeInsert, Column, Entity } from 'typeorm';
+import { hashSync } from 'bcrypt'; 
 
 @Entity('usuario')
 export class User extends Default {
@@ -22,10 +22,8 @@ export class User extends Default {
   @Column({ name: 'telefone', nullable: false, type: 'varchar' })
   phone: string;
 
-  @ManyToOne(() => Login)
-  @JoinColumn({ name: 'login_id' })
-  login: Login;
-
-  @Column({ name: 'login_id' })
-  loginId: number;
+  @BeforeInsert()
+  hashPassword(){
+    this.password = hashSync(this.password, 10)
+  }
 }

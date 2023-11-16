@@ -1,7 +1,7 @@
 import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SelectUserDto } from './dto/select-user.dto';
@@ -44,6 +44,17 @@ export class UserService {
     }
 
     return user;
+  }
+
+
+  async findOneOrFail( email: string
+    /*options?: FindOneOptions<User>,*/
+  ) {
+    try {
+      return await this.repository.findOneOrFail({ where: { email } });
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
