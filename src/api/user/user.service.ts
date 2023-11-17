@@ -6,13 +6,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SelectUserDto } from './dto/select-user.dto';
 import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+import { hashSync } from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) public readonly repository: Repository<User>) {}
+
+  private hashPassword(password: string): string {
+    return hashSync(password, 10);
+  }
   async create(createUserDto: CreateUserDto) {
     try {
-      const data = await this.repository.save(createUserDto);
+      const hashedPassword = this.hashPassword(createUserDto.password);
+      const data = await this.repository.save({ ...createUserDto, password: hashedPassword });
       return data;
     } catch (error) {
       if (error && error.code === 'ER_NO_REFERENCED_ROW_2') {
@@ -46,8 +52,8 @@ export class UserService {
     return user;
   }
 
-
-  async findOneOrFail( email: string
+  async findOneOrFail(
+    email: string,
     /*options?: FindOneOptions<User>,*/
   ) {
     try {

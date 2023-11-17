@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -7,9 +7,11 @@ import { SelectUserDto } from './dto/select-user.dto';
 import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('user')
 @Controller('user')
+/*@UseGuards(AuthGuard('jwt'))*/
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

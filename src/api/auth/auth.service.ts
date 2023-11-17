@@ -10,6 +10,7 @@ export class AuthService {
         private jwtService: JwtService) {}
 
     async login(user) {
+        console.log(user)
         const payload = { sub: user.id, email: user.email };
 
         return {
