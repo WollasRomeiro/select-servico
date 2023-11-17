@@ -15,7 +15,20 @@ import { AuthModule } from 'api/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [WorkerModule, UserModule, TypeOrmModule.forRoot(yaml().orm), ContractModule, CompanyModule, AddressModule, ProfissionModule, AuthModule, JwtModule],
+  imports: [
+    WorkerModule,
+    UserModule,
+    TypeOrmModule.forRoot(yaml().orm),
+    ContractModule,
+    CompanyModule,
+    AddressModule,
+    ProfissionModule,
+    AuthModule,
+    JwtModule.register({
+      privateKey: process.env.JWT_SECRET_KEY || '12334',
+      signOptions: { expiresIn: '68s' },
+    }),
+  ],
   controllers: [HomeController, AuthController],
   providers: [AuthService],
 })

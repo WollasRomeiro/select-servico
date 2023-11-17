@@ -6,12 +6,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SelectUserDto } from './dto/select-user.dto';
 import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(@InjectRepository(User) public readonly repository: Repository<User>) {}
   async create(createUserDto: CreateUserDto) {
     try {
+      const salt = await this.generateSalt();
+      createUserDto.password = await this.generateHashByUserPassword(createUserDto.password, salt);
+
       const data = await this.repository.save(createUserDto);
       return data;
     } catch (error) {
@@ -46,8 +50,8 @@ export class UserService {
     return user;
   }
 
-
-  async findOneOrFail( email: string
+  async findOneOrFail(
+    email: string,
     /*options?: FindOneOptions<User>,*/
   ) {
     try {
@@ -68,4 +72,12 @@ export class UserService {
     const user: User = await this.findOne(id);
     return this.repository.remove(user);
   }
+
+  private generateSalt = async (): Promise<string> => {
+    return bcrypt.genSaltSync();
+  };
+
+  private generateHashByUserPassword = async (userPassword: string, saltGenerated: string): Promise<string> => {
+    return bcrypt.hashSync(userPassword, saltGenerated);
+  };
 }
