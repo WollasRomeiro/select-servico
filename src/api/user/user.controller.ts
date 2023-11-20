@@ -7,11 +7,11 @@ import { SelectUserDto } from './dto/select-user.dto';
 import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
-import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'api/auth/strategies/jwt-auth.guard';
 
 @ApiTags('user')
 @Controller('user')
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

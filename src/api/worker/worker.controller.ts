@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { WorkerService } from './worker.service';
 import { CreateWorkerDto } from './dto/create-worker.dto';
 import { UpdateWorkerDto } from './dto/update-worker.dto';
@@ -9,7 +9,10 @@ import { Worker } from './entities/worker.entity';
 import { WorkerFilter } from './dto/worker-filter.dto';
 import { SelectWorkerDto } from './dto/select-worker.dto';
 import { paginationDTOResponse } from 'util/functions/pagination-swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'api/auth/strategies/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('worker')
 @Controller('worker')
 export class WorkerController {
@@ -19,7 +22,7 @@ export class WorkerController {
   create(@Body() createWorkerDto: CreateWorkerDto) {
     return this.workerService.create(createWorkerDto);
   }
- 
+
   @Get()
   @ApiResponse({
     status: 200,

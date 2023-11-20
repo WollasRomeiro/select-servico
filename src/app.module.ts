@@ -14,6 +14,7 @@ import { AuthService } from './api/auth/auth.service';
 import { AuthModule } from 'api/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { JwtStrategy } from 'api/auth/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -27,11 +28,11 @@ import { ConfigModule } from '@nestjs/config';
     ProfissionModule,
     AuthModule,
     JwtModule.register({
-      privateKey: "W3hH9MWFLwJFB7YayaSa+MJFxaqjGnxdMlFhTwzwmX8=",
+      privateKey: 'W3hH9MWFLwJFB7YayaSa+MJFxaqjGnxdMlFhTwzwmX8=',
       signOptions: { expiresIn: '9999s' },
     }),
   ],
   controllers: [HomeController, AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
 })
 export class AppModule {}
