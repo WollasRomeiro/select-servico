@@ -9,7 +9,6 @@ export class AuthService {
   constructor(private readonly userService: UserService, private jwtService: JwtService) {}
 
   async login(user: User) {
-    console.log(user);
     const payload = { sub: user.id, email: user.email, name: user.name };
 
     return {
