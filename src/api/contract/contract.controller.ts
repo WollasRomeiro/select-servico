@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { ContractService } from './contract.service';
 import { CreateContractDto } from './dto/create-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
@@ -8,9 +8,11 @@ import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { ContractFilter } from './dto/contract-filter.dto';
+import { JwtAuthGuard } from 'api/auth/strategies/jwt-auth.guard';
 
 @Controller('contract')
 @ApiTags('contract')
+@UseGuards(JwtAuthGuard)
 export class ContractController {
   constructor(private readonly contractService: ContractService) {}
 
