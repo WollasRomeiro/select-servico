@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
@@ -7,9 +7,11 @@ import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { PaginationOptionsQuery } from 'util/entities/pagination-options.filter';
 import { SelectCompanyDto } from './dto/select-company.dto';
+import { JwtAuthGuard } from 'api/auth/strategies/jwt-auth.guard';
 
 @ApiTags('company')
 @Controller('company')
+@UseGuards(JwtAuthGuard)
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 

@@ -12,9 +12,9 @@ import { paginationDTOResponse } from 'util/functions/pagination-swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from 'api/auth/strategies/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
 @ApiTags('worker')
 @Controller('worker')
+@UseGuards(JwtAuthGuard)
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
