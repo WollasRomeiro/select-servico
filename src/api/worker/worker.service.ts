@@ -8,10 +8,11 @@ import { IPaginationMeta, IPaginationOptions, Pagination, paginate } from 'nestj
 import { SelectWorkerDto } from './dto/select-worker.dto';
 import { WorkerFilter } from './dto/worker-filter.dto';
 import { publishWroker } from 'util/publish/workerPublish';
+import { ImagesService } from 'api/images/images.service';
 
 @Injectable()
 export class WorkerService {
-  constructor(@InjectRepository(Worker) public readonly repository: Repository<Worker>) {}
+  constructor(@InjectRepository(Worker) public readonly repository: Repository<Worker>, private readonly imagesService: ImagesService) {}
 
   async create(createWorkerDto: CreateWorkerDto) {
     try {
@@ -41,7 +42,13 @@ export class WorkerService {
     }
 
     const results = await paginate<Worker>(query, paginationOptions);
-    const items = results.items.map((result) => new SelectWorkerDto(result));
+    const items = await Promise.all(
+      results.items.map(async (result) => {
+        const image = await this.imagesService.findOne(result.id);
+
+        return new SelectWorkerDto(result, image?.image);
+      }),
+    );
 
     return new Pagination<SelectWorkerDto>(items, results.meta);
   }
@@ -54,6 +61,20 @@ export class WorkerService {
     }
 
     return worker;
+  }
+
+  async findOneDto(id: number) {
+    console.log('busncado wirker');
+
+    const worker: Worker = await this.repository.findOneBy({ id });
+
+    const image = await this.imagesService.findOne(worker.id);
+
+    if (!worker) {
+      throw new NotFoundException('Worker not found');
+    }
+
+    return new SelectWorkerDto(worker, image?.image);
   }
 
   async update(id: number, updateWorkerDto: UpdateWorkerDto) {
