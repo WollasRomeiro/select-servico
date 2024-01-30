@@ -15,6 +15,7 @@ import { AuthModule } from 'api/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { JwtStrategy } from 'api/auth/strategies/jwt.strategy';
+import { ImagesModule } from './api/images/images.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { JwtStrategy } from 'api/auth/strategies/jwt.strategy';
       privateKey: 'W3hH9MWFLwJFB7YayaSa+MJFxaqjGnxdMlFhTwzwmX8=',
       signOptions: { expiresIn: '9999s' },
     }),
+    ImagesModule,
   ],
   controllers: [HomeController, AuthController],
   providers: [AuthService, JwtStrategy],
