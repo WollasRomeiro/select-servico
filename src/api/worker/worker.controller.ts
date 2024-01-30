@@ -39,7 +39,7 @@ export class WorkerController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.workerService.findOne(+id);
+    return this.workerService.findOneDto(+id);
   }
 
   @Patch(':id')
